@@ -19,7 +19,7 @@
                         url: '/api/login',
                         success: function(data) {
                             if(data){
-                                window.location='https://quick--note.herokuapp.com/api/login'
+                                window.location='https://quick--note.herokuapp.com'
                             }
                         }
                     })
