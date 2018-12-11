@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const path = require("path");
-const port = process.env.PORT || 8081;
+const port = process.env.PORT || 3000;
 const parseJson = require("parse-json");
 const bodyParser = require("body-parser");
 const assert =  require("assert");
@@ -14,10 +14,10 @@ var session = require('express-session');
 var validator = require('express-validator');
 var MongoDBStore = require('connect-mongodb-session')(session);
 require("request");
-mongoose.connect("mongodb://admin:admin123@ds227664.mlab.com:27664/quicknote",{
+mongoose.connect("mongodb://localhost:27017/login",{
 });
 var store = new MongoDBStore({
-  uri: 'mongodb://admin:admin123@ds227664.mlab.com:27664/quicknote',
+  uri: 'mongodb://localhost:27017/login',
   collection: 'mySessions'
 });
 var db = mongoose.connection;
@@ -71,22 +71,26 @@ db.once("open", function(callback) {
   console.log("Connection succeeded to Mongodb using Mongoose");
 
   app.post('/api/login/', function(req, res) {
+	  console.log("######################################### ")
     req.check('loginEmail', 'Invalid Email! ').isEmail();
     req.check('loginPassword', 'Invalid Password!  ').isLength({min:4});
     let errors = req.validationErrors();
     let loginErrors = JSON.parse(JSON.stringify(errors));
     if(errors){
+  	  console.log("######################################### ")
       req.session.errors = loginErrors;
       req.session.success = false;
       res.send(req.session.errors)
   
     }
     else{
+    	console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" )
       let authBody = {};
       req.session.success = true;
       authBody.loginEmail = req.body.loginEmail;
       authBody.loginPassword = req.body.loginPassword;
       authenticateLogin(authBody).then((authBody)=>{
+    	  console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ",authBody.authStatus)
       if(authBody.authStatus){
         req.session.user = authBody;
         res.render("index", {
@@ -187,12 +191,13 @@ app.post("/api/sms", (req, res) => {
        );
 });
 
-MongoClient.connect("mongodb://admin:admin123@ds227664.mlab.com:27664/quicknote", function(err, client) {
+MongoClient.connect("mongodb://localhost:27017/notes", function(err, client) {
     let db = client.db("notes");
     let notes = db.collection("notes");
     if (err) throw err;
 
     app.get("/notes/", (req, res) => {
+    	console.log("/notes")
       if (!req.session.user){
          res.redirect("/api/login")
       }

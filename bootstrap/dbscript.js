@@ -65,7 +65,7 @@
                             }
                             else if (status == true){
                                 $('#success-msg-register').append("Registration Success!! Click Login to Proceed >>");
-                                $( "#login-register" ).fadeIn( "slow" )
+                                $( "#login-register-client" ).fadeIn( "slow" )
                                 self.clearDataRegister();
                             }
                             else if (status.name == "MongoError"){
@@ -318,16 +318,16 @@
                         self.searchNote(searchText);
                     });
 
-                    $(document).on("click", "#loginbtn", function () {
+                    $(document).on("click", "#btn-login", function () {
                         self.loginNote(self.getDataLoginNote());
                     });
 
-                    $(document).on("click", "#login-register", function (e) {
+                    $(document).on("click", "#login-register-client", function (e) {
                         self.redirectLoginNote();
                         e.preventDefault();
                     });
 
-                    $(document).on("click", "#btnRegister", function (e) {
+                    $(document).on("click", "#btn-register-client", function (e) {
           
                         self.registerNote(self.getDataRegisterNote());
                         e.preventDefault();

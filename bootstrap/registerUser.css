@@ -98,7 +98,7 @@ body#RegisterUser{ background-image:url("/plain-light-blue.jpg"); background-rep
     color: #495057;
 }
 
-.btnRegister{
+.btn-register{
     margin-left: 10px;
     margin-top: 1%;
 }

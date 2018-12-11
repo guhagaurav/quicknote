@@ -63,7 +63,7 @@ body#LoginForm{ background-image:url("/plain-light-blue.jpg"); background-repeat
       padding: 3%;
   }
   
-  #loginbtn{
+  #btn-login{
       position: absolute;
       left:30px;
       margin-top: 10%;
