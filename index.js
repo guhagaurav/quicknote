@@ -158,7 +158,7 @@ app.get("/api/registerUser", (req, res) => {
   req.session.errors = null;
 })
 
-app.get("/api/login/", (req, res) => {
+app.get("/", (req, res) => {
     res.render("login", {
       title: "Login to Personal Notes",
       success: req.session.success,
