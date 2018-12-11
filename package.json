@@ -1,10 +1,11 @@
 {
-  "name": "week_9_hw",
+  "name": "QuickNote",
   "version": "1.0.0",
   "description": "books",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "start": "index.js"
   },
   "keywords": [
     "books"
