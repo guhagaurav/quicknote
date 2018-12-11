@@ -187,7 +187,7 @@ app.post("/api/sms", (req, res) => {
        );
 });
 
-MongoClient.connect("mongodb://localhost:27017/notes", function(err, client) {
+MongoClient.connect("mongodb://admin:admin123@ds227664.mlab.com:27664/quicknote/notes", function(err, client) {
     let db = client.db("notes");
     let notes = db.collection("notes");
     if (err) throw err;
