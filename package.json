@@ -17,7 +17,7 @@
     "express": "^4.16.3",
     "jquery": "^3.3.1",
     "load-json-file": "^5.1.0",
-    "mongodb": "2.2.33",
+    "mongodb": "^3.1.8",
     "parse-json": "^4.0.0",
     "shoutout-sdk": "^3.0.2"
   },
@@ -32,7 +32,7 @@
     "http": "0.0.0",
     "jasmine": "^3.2.0",
     "mocha": "^5.2.0",
-    "mongoose": "4.2.9",
+    "mongoose": "^5.3.15",
     "nexmo": "^2.4.0",
     "path": "^0.12.7",
     "pug": "^2.0.3",
