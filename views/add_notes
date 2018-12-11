@@ -1,0 +1,20 @@
+extends layout
+
+block content
+    h2 #{title}
+    form(method='POST', action='/notes/add')
+        .form-group
+        .col-sm-3
+            label(for='title') Title
+            input.form-control(name='title' type='text' placeholder='Enter title of the book')
+        .form-group
+        .col-sm-3
+            label(for='author') Author
+            input.form-control(name='author' type='text' placeholder='Enter author of the book')   
+        .form-group
+        .col-sm-3
+            label(for='numPages') Number of Pages
+            input.form-control(name='numPages' type='text' placeholder='Enter number of pages the book') 
+        br
+        button.btn.btn-primary(type='submit') Submit
+

@@ -1,0 +1,97 @@
+extends layout
+block content
+   body#RegisterUser
+        .container.register
+            .row
+                .col-md-3.register-left
+                    img(src='https://image.ibb.co/n7oTvU/logo_white.png', alt='')
+                    h3 QuickNote
+                    p You are 20 seconds away from having your own personilized notes!!!
+                .col-md-9.register-right
+                    ul#myTab.nav.nav-tabs.nav-justified(role='tablist')
+                        li.nav-item
+                            a#home-tab.nav-link.active(data-toggle='tab', href='#home', role='tab', aria-controls='home', aria-selected='true') Client
+                        li.nav-item
+                            a#profile-tab.nav-link(data-toggle='tab', href='#profile', role='tab', aria-controls='profile', aria-selected='false') Employee
+                    #myTabContent.tab-content
+                        #home.tab-pane.fade.show.active(role='tabpanel', aria-labelledby='home-tab')
+                            h3.register-heading Apply as a Client
+                            form#register-form-client.row.register-form
+                                .col-md-6
+                                    .form-group
+                                        input.form-control(name='fNameClient', type='text', placeholder='First Name *', value='', required='')
+                                    .form-group
+                                        input.form-control(name='lNameClient', type='text', placeholder='Last Name *', value='', required='')
+                                    .form-group
+                                        input.form-control(name='passClient', type='password', placeholder='Password *', value='', required='')
+                                    .form-group
+                                        input.form-control(name='confirmPassClient', type='password', placeholder='Confirm Password *', value='', required='')
+                                    .form-group
+                                        .maxl
+                                            label.radio.inline
+                                            input(name='gender',type='radio', value='male', checked='')
+                                            span  Male 
+                                            label.radio.inline
+                                            input(name='gender', type='radio', value='female')
+                                            span  Female 
+                                .col-md-6
+                                    .form-group
+                                        input.form-control(name='emailClient', type='email', placeholder='Your Email *', value='', required='')
+                                    .form-group
+                                        input.form-control(name='phClient', type='text', minlength='10', maxlength='10', placeholder='Your Phone ', value='')
+                                    .form-group
+                                        select.form-control(name='secQuesClient', required='')
+                                            option.hidden(value='', disabled=true, selected=true) Please select your Security Question
+                                            option(value='What is your Birthdate?') What is your Birthdate?
+                                            option(value='What is Your old Phone Number') What is Your old Phone Number
+                                            option(value='What is your Pet Name?') What is your Pet Name?
+                                    .form-group
+                                        input.form-control(name='secAnsClient', type='text', placeholder='Enter Your Answer *', value='', required='')           
+                                .col-md-12
+                                    input#btn-register-client.btn-register(type='submit', value='Register')
+                                    input#login-register-client(type='submit', value='Click to Login')
+                                    p#err-msg-register(style="color:red")
+                                    p#success-msg-register(style="color:green")
+                                    //marquee#err-msg-register(behavior='scroll', direction='left', style="color:red")
+   
+                        #profile.tab-pane.fade.show(role='tabpanel', aria-labelledby='profile-tab')
+                            h3.register-heading Apply as a Employee
+                            form#register-form-emp.row.register-form
+                                .col-md-6
+                                    .form-group
+                                        input.form-control(name='fNameEmp', type='text', placeholder='First Name *', value='', required='')
+                                    .form-group
+                                        input.form-control(name='lNameEmp', type='text', placeholder='Last Name *', value='', required='')
+                                    .form-group
+                                        input.form-control(name='emailEmp', type='email', placeholder='Email *', value='', required='')
+                                    .form-group
+                                        input.form-control(name='phEmp', type='text', maxlength='10', minlength='10', placeholder='Phone *', value='', required='')
+                                    .form-group
+                                        .maxl
+                                            label.radio.inline
+                                            input(name='gender', type='radio', value='male', checked='')
+                                            span  Male 
+                                            label.radio.inline
+                                            input(name='gender', type='radio', value='female')
+                                            span  Female 
+                                .col-md-6
+                                    .form-group
+                                        input.form-control(name='passEmp', type='password', placeholder='Password *', value='', required='')
+                                    .form-group
+                                        input.form-control(name='confirmPassEmp', type='password', placeholder='Confirm Password *', value='', required='')
+                                    .form-group
+                                        select.form-control(name='secQuesEmp')
+                                            option.hidden(selected='', disabled='') Please select your Sequrity Question
+                                            option What is your Birthdate?
+                                            option What is Your old Phone Number
+                                            option What is your Pet Name?
+                                    .form-group
+                                        input.form-control(name='secAnsEmp', type='text', placeholder='`Answer *', value='', required='')
+                                .col-md-12
+                                    input#btn-register-emp.btn-register(type='submit', value='Register')
+                                    input#login-register-emp(type='submit', value='Click to Login')
+                                    p#err-msg-register(style="color:red")
+                                    p#success-msg-register(style="color:green")
+        .alert.alert-success(role='alert')
+        .alert.alert-info(role='alert')
+        .alert.alert-danger(role='alert')

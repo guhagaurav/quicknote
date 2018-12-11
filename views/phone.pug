@@ -1,0 +1,20 @@
+extends layout
+block content
+    #confirm-sms.modal.fade(tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true')
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    h5.modal-title Enter the Phone number to send notes message
+                .modal-body
+                    label(for='notePhoneField') Phone Number#
+                    .col-xs-4
+                    input#notephoneField1.form-control(type='text', size='4', maxlength='4', placeholder='phone number', required='required')
+                    .col-xs-4
+                    input#notephoneField2.form-control(type='text', size='4', maxlength='4', placeholder='phone number', required='required')
+                    .col-xs-4
+                    input#notephoneField3.form-control(type='text', size='4', maxlength='4', placeholder='phone number', required='required')
+                .modal-footer
+                    .form-group
+                    button.btn.btn-outline-secondary.btn-sm(type='button' data-dismiss='modal') Cancel
+                    button#note-sendSMS.btn.btn-info.btn-ok.btn-sm(type='button') Send SMS  
+ 

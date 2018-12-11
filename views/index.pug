@@ -1,0 +1,87 @@
+extends layout
+ 
+block content
+  body
+    strong
+      .logout 
+        a(href='/api/logout') Logout
+    .container
+      h4(align='center', style='color: crimson; font-style: oblique; font-weight: 600;') QuickNote
+      br
+      input#searchNote.form-control(name='search note' type='text', placeholder='search note message')
+      br
+      button#searchbtn.submit-btn.btn.btn-primary.btn-sm(type='button') Search
+      br
+      .clearfix
+        .pull-left
+          button#add-note.btn.btn-primary.btn-sm(type='button', data-toggle='modal', data-placement='top', data-target='#myModal', title='Add a New Note')
+            | Add Note
+          strong.total-notes
+            | Total Notes:  
+            span#tot-count
+      .panel.panel-info
+        .panel-heading
+          strong List of Notes
+        .panel-body
+          table.table.table-striped
+            thead 
+              tr
+                th(scope='col') Index
+                th(scope='col') Note
+                th(scope='col', style='width:20%') Action
+            tbody#tbl
+        #myModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+          .modal-dialog(role='document')
+            .modal-content
+              .modal-header
+                button.close(type='button', data-dismiss='modal', aria-label='Close')
+                span(style='font-weight: bold; margin: auto' ) Add New Note
+              .modal-body
+                .form-group
+                  label(for='noteSubjectField') Note Subject
+                  input#noteSubjectField.form-control(placeholder='Subject', type='text')
+                .form-group
+                  label(for='noteNameField') Author Name
+                  input#noteNameField.form-control(type='text', placeholder='Author Name')
+                .form-group
+                  label(for='noteMessageField') Note Message
+                  textarea#noteMessageField.form-control(type='text', placeholder='Message', rows='7')
+                  span#helpBlock.help-block
+                .checkbox
+                  .text-right
+                    span#text-count(data-max-length='500')
+                    |  Characters Remaining
+              .modal-footer
+                  button.btn.btn-outline-secondary.btn-sm(type='button', data-dismiss='modal') Cancel
+                  button#submitbtn.submit-btn.btn.btn-primary.btn-sm(type='button') Submit
+        #confirm-delete.modal.fade(tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true')
+          .modal-dialog
+            .modal-content
+              .modal-header
+                h5.modal-title Confirmation
+              .modal-body
+                | Do you want to delete this note?
+              .modal-footer
+                button.btn.btn-outline-secondary.btn-sm(type='button' data-dismiss='modal') Cancel
+                button#note-delete.btn.btn-danger.btn-ok.btn-sm(type='button') Delete
+        #confirm-sms.modal.fade(tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true')
+          .modal-dialog
+            .modal-content
+              .modal-header
+                h6.modal-title Enter the Phone number to send notes message
+              .modal-body
+                div.phone-number
+                  label(for='noteNameField') Ph Number#   
+                  .col-sm-2
+                    input#notephoneField1.form-control(type='text', size='1', maxlength='1', placeholder='cc', required='required')
+                  .col-sm-4
+                    input#notephoneField2.form-control(type='text', size='12', maxlength='10', placeholder='ph number', required='required')
+              .modal-footer
+                .form-group
+                  button.btn.btn-outline-secondary.btn-sm(type='button' data-dismiss='modal') Cancel
+                  button#note-sendSMS.btn.btn-info.btn-ok.btn-sm(type='button') Send SMS  
+        .alert.alert-success(role='alert')
+        .alert.alert-info(role='alert')
+        .alert.alert-danger(role='alert')
+        .alert.alert-warning.alert-dismissible.fade.in
+
