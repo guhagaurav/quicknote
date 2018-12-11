@@ -71,7 +71,8 @@ db.on("error", console.error.bind(console, "connection error"));
 db.once("open", function(callback) {
   console.log("Connection succeeded to Mongodb using Mongoose");
 
-  app.post(baseURL + '/api/login/', function(req, res) {
+  app.post('/api/login/', function(req, res) {
+
     req.check('loginEmail', 'Invalid Email! ').isEmail();
     req.check('loginPassword', 'Invalid Password!  ').isLength({min:4});
     let errors = req.validationErrors();
@@ -103,7 +104,7 @@ db.once("open", function(callback) {
     }
   });
 
-app.post(baseURL + '/api/registerUser', function(req, res) {
+app.post('/api/registerUser', function(req, res) {
     req.checkBody('fNameClient','FirstName is empty! ').notEmpty();
     req.checkBody('lNameClient','LastName is empty! ').notEmpty();
     req.checkBody('emailClient','Email is empty! ').notEmpty();
@@ -150,7 +151,7 @@ app.post(baseURL + '/api/registerUser', function(req, res) {
   });
 });
 
-app.get(baseURL + "/api/registerUser", (req, res) => {
+app.get("/api/registerUser", (req, res) => {
   res.render("registerUser", {
     title: "Register New User",
     success: req.session.success,
@@ -168,13 +169,13 @@ app.get("/", (req, res) => {
     req.session.errors = null;
 });
 
-app.get(baseURL + "/api/logout", (req, res)=>{
+app.get("/api/logout", (req, res)=>{
   req.session.destroy();
   res.redirect(baseURL + "/api/login")
   return res.status(200).send();
 })
 
-app.post(baseURL + "/api/sms", (req, res) => {
+app.post("/api/sms", (req, res) => {
     nexmo.message.sendSms(
         '16193917840', req.body.notePhone, req.body.message,
           (err, responseData) => {
@@ -192,10 +193,10 @@ MongoClient.connect("mongodb://admin:admin123@ds227664.mlab.com:27664/quicknote"
     let db = client.db("quicknote");
     if (err) throw err;
 
-    app.get(baseURL + "/notes/", (req, res) => {
+    app.get("/notes/", (req, res) => {
     	console.log("/notes")
       if (!req.session.user){
-         res.redirect(baseURL + "/api/login")
+         res.redirect("/api/login")
       }
       else{
         res.render("index", {
@@ -206,7 +207,7 @@ MongoClient.connect("mongodb://admin:admin123@ds227664.mlab.com:27664/quicknote"
 
     });
 
-    app.get(baseURL + "/api/notes/", (req, res) => {
+    app.get("/api/notes/", (req, res) => {
      if(req.session.user){
       //let userDetails = JSON.parse(JSON.stringify(req.session.user));
        db.collection('notes').find({"emailClient": req.session.user.loginEmail}).toArray((err, result) => {
@@ -221,7 +222,7 @@ MongoClient.connect("mongodb://admin:admin123@ds227664.mlab.com:27664/quicknote"
      }
     });
 
-    app.post(baseURL + "/api/notes/search", (req, res) => {
+    app.post("/api/notes/search", (req, res) => {
       let body = req.body;
       if(req.session.user){
           db.collection('notes').find({$and: [{"emailClient": req.session.user.loginEmail},{ message: { $regex: body.searchText }}]}).toArray((err, data) => {
@@ -235,7 +236,7 @@ MongoClient.connect("mongodb://admin:admin123@ds227664.mlab.com:27664/quicknote"
       }
     });
 
-    app.get(baseURL + "/api/notes/:id", (req, res) => {
+    app.get("/api/notes/:id", (req, res) => {
       let id = ObjectID.createFromHexString(req.params.id);
     db.collection('notes').findOne({ _id: id }, (err, note) => {
         if (err) {
@@ -249,7 +250,7 @@ MongoClient.connect("mongodb://admin:admin123@ds227664.mlab.com:27664/quicknote"
       });
     });
 
-    app.post(baseURL + "/api/notes", (req, res) => {
+    app.post("/api/notes", (req, res) => {
       let body = req.body
       if(req.session.user){
         let userDetails = JSON.parse(JSON.stringify(req.session.user));
@@ -265,7 +266,7 @@ MongoClient.connect("mongodb://admin:admin123@ds227664.mlab.com:27664/quicknote"
     }
     });
 
-    app.put(baseURL + "/api/notes/:id", (req, res) => {
+    app.put("/api/notes/:id", (req, res) => {
       let id = ObjectID.createFromHexString(req.params.id);
       let subject = req.body.subject;
       let author = req.body.author;
@@ -293,7 +294,7 @@ MongoClient.connect("mongodb://admin:admin123@ds227664.mlab.com:27664/quicknote"
       });
     });
 
-    app.delete(baseURL + "/api/notes/:id", (req, res) => {
+    app.delete("/api/notes/:id", (req, res) => {
       let id = ObjectID.createFromHexString(req.params.id);
     db.collection('notes').removeOne({ _id: id }, (err, note) => {
         if (err) {
