@@ -2,7 +2,7 @@
 
     //Defining namespace
         var stickyNotes = function () {
-            
+
             return {
                 variables: {
                     "id": '',
@@ -16,10 +16,10 @@
                     $.ajax({
                         type: 'GET',
                         contentType: 'application/json',
-                        url: 'http://localhost:3000/api/login',						
+                        url: 'http://localhost:3000/api/login',
                         success: function(data) {
                             if(data){
-                                window.location='http://localhost:3000/api/login'
+                                window.location='https://quick--note.herokuapp.com/api/login'
                             }
                         }
                     })
@@ -31,33 +31,33 @@
                         type: 'POST',
                         data: loginDetails,
                         contentType: 'application/json',
-                        url: 'http://localhost:3000/api/login',						
-                        success: function(status) {  
+                        url: 'http://localhost:3000/api/login',
+                        success: function(status) {
                         if (status == 404){
                             $("#err-msg-login").empty();
                             $("#err-msg-login").append(" Check the password or Please Register ");
                         }
                         else if (status.length === 2 || status.length === 1){
-                            var result = status.map(a => a.msg);  
+                            var result = status.map(a => a.msg);
                             $("#err-msg-login").empty();
                             $("#err-msg-login").append(result);
-                        }    
+                        }
                         else {
-                            window.location='http://localhost:3000/notes'
-                        }   
+                            window.location='https://quick--note.herokuapp.com//notes'
+                        }
                         }
                     });
                 },
 
                 registerNote: function (registerData){
                     var self = this;
-                    
+
                     $.ajax({
                         type: 'POST',
                         data: registerData,
                         contentType: 'application/json',
-                        url: 'http://localhost:3000/api/registerUser',						
-                        success: function(status) {   
+                        url: 'https://quick--note.herokuapp.com/api/registerUser',
+                        success: function(status) {
                             console.log("REGISTR SAVE ",status);
                             $('#err-msg-register').empty();
                             if(status == false){
@@ -72,7 +72,7 @@
                                 $('#success-msg-register').append("Registration Success!! Click Login to Proceed >>");
                             }
                         }
-                       
+
                         })
                     },
 
@@ -82,36 +82,36 @@
                     data.searchText = searchText;
                     var newData = JSON.stringify(data)
                     $("#tbl").empty();
-    
+
                     $.ajax({
                         type: 'POST',
                         data: newData,
                         contentType: 'application/json',
-                        url: 'http://localhost:3000/api/notes/search',						
+                        url: 'https://quick--note.herokuapp.com/api/notes/search',
                         success: function(data) {
                             for (let index in data) {
                                 self.variables.result.push(data[index])
                                 $("#tbl").append("<tr><td>" + index + "</td> <td><div class='note'>" +
                                 "<p>Subject: " + data[index].subject + "</p>" +
-                                "<p>Message: " + data[index].message + "</p>" + 
+                                "<p>Message: " + data[index].message + "</p>" +
                                 " <p> Message Length: " + data[index].noteLength+ "</p>" +
                                 "<strong>Author: " + data[index].author + "</strong>" + " <span>, " + data[index].noteTime + "</span>" +
                                 "</div></td><td><button type='button' data-toggle='modal' data-target='#myModal' class='btn-sm edit-btn btn btn-primary' data-index='" + index + "'" + "id='edit-btn" + index + "'" + ">Edit</button> " +
                                 "<button type='button' class='btn-sm del-btn btn btn-danger' data-index='" + data[index]._id + "'" + "id='del-btn'>Delete</button>" +
                                 "<button type='button' class='btn-sm sms-btn btn btn-info' data-index='" + index + "'" + "id='sms-btn'>Send SMS</button></td></td></tr>");
-                            
+
                             index++;
-                            
+
                                 }
                         let len = data.length;
                         $("#tot-count").text(len);
-                      
+
                     }
-                    
+
                     });
-                   
-                }, 
-                
+
+                },
+
                 sendSMS: function (ph, msgBody) {
                     let self = this;
                     let parseBody = JSON.parse(msgBody)
@@ -121,14 +121,14 @@
                         type: 'POST',
                         data: msg,
                         contentType: 'application/json',
-                            url: 'http://localhost:3000/api/sms',						
+                            url: 'https://quick--note.herokuapp.com/api/sms',
                             success: function(data) {
                             if (data.messages[0].status == 0){
                                 self.showAlertInfo("Message sent Successfully")
                             }
                             else if (data.messages[0].status != 0) {
                                 self.showAlertDanger(data.messages[0]["error-text"])
-                            } 
+                            }
                         }
                     });
                 },
@@ -141,7 +141,7 @@
                         type: 'POST',
                         data: obj,
                         contentType: 'application/json',
-                        url: 'http://localhost:3000/api/notes',						
+                        url: 'https://quick--note.herokuapp.com/api/notes',
                         success: function(data) {
                             setTimeout(function () {
                                 self.getNote();
@@ -149,7 +149,7 @@
                         }
                     });
                 },
-    
+
     //getNote function will get the notes from mongoDB and display in UI
                 getNote: function () {
                     this.variables.result = [];
@@ -158,7 +158,7 @@
                     $.ajax({
                         type: 'GET',
                         contentType: 'application/json',
-                        url: 'http://localhost:3000/api/notes',						
+                        url: 'https://quick--note.herokuapp.com/api/notes',
                         success: function(data) {
                         for (let index in data) {
                             self.variables.result.push(data[index])
@@ -169,17 +169,17 @@
                             "</div></td><td><button type='button' data-toggle='modal' data-target='#myModal' class='btn-sm edit-btn btn btn-primary' data-index='" + index + "'" + "id='edit-btn" + index + "'" + ">Edit</button> " +
                             "<button type='button' class='btn-sm del-btn btn btn-danger' data-index='" + data[index]._id + "'" + "id='del-btn'>Delete</button>" +
                             "<button type='button' class='btn-sm sms-btn btn btn-info' data-index='" + index + "'" + "id='sms-btn'>Send SMS</button></td></td></tr>");
-                        
+
                         index++;
-                        
+
                             }
                     var len = data.length;
                     $("#tot-count").text(len);
                         }
                     });
-                   
+
                 },
-    
+
     //editNote function will allow the user to edit note
                 editNote: function (obj) {
                     let self = this;
@@ -189,23 +189,23 @@
                         type: 'PUT',
                         data: data,
                         contentType: 'application/json',
-                        url: 'http://localhost:3000/api/notes/'+id,						
+                        url: 'https://quick--note.herokuapp.com/api/notes/'+id,
                         success: function(data) {
                             setTimeout(function () {
                                 self.getNote();
                             }, 100);
                         }
                     });
-    
+
                 },
-    
+
     //delNote function will delete the note
                 delNote: function (id) {
                     var self = this;
                     $.ajax({
                         type: 'DELETE',
                         contentType: 'application/json',
-                        url: 'http://localhost:3000/api/notes/'+id,						
+                        url: 'https://quick--note.herokuapp.com/api/notes/'+id,
                         success: function(data) {
                             setTimeout(function () {
                                 self.getNote();
@@ -214,14 +214,14 @@
                     });
                 },
 
-    
+
     //getData function will get the data from DOM
                 getDataAddNote: function () {
     //validating for script tags with RegEx
                     let subj = $("#noteSubjectField").val().replace(/</g, "&lt;").replace(/>/g, "&gt;");
                     let msg = $("#noteMessageField").val().replace(/</g, "&lt;").replace(/>/g, "&gt;");
                     let auth = $("#noteNameField").val().replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    
+
     //validating for script tags with jquery
                     //var encodedMsg = $('<div />').text(msg).html();
                     //var encodedAuth = $('<div />').text(auth).html();
@@ -262,10 +262,10 @@
                         {
                             if (radios[i].checked)
                                 {
-                                    data.gender = radios[i].value;         
+                                    data.gender = radios[i].value;
                                     break;
                                 }
-                        }        
+                        }
                     return JSON.stringify(data);
                 },
 
@@ -280,30 +280,30 @@
                     $(registerClientData['secAnsClient']).val('');
                     $(registerClientData['secQuesClient']).val('');
                 },
-    
-    
+
+
     //showAlert function will show animated alerts
-                showAlertInfo: function (msg) {      
+                showAlertInfo: function (msg) {
                     $('.alert.alert-info').text(msg).slideDown(500).delay(4000).slideUp(500);
                 },
 
-                showAlertDanger: function (msg) {      
+                showAlertDanger: function (msg) {
                     $('.alert.alert-danger').text(msg).slideDown(500).delay(4000).slideUp(500);
                 },
 
     //getEditNote function will get the data saved in array from the DOM
                 getEditNote: function (row) {
-    
+
                     $("#noteNameField").val(row.author);
                     $("#noteMessageField").val(row.message);
                     $("#noteSubjectField").val(row.subject);
                     $("#noteSubjectField").attr('data-Index-id', row._id)
                 },
-    
+
     //clickOps function will handle all the click events.
                 clickOps: function () {
                     var self = this;
-    
+
                     $(document).on("click", "#add-note", function () {
                         self.variables.addNoteFlag = true;
                         self.variables.length = $('#text-count').attr("data-max-length");
@@ -328,7 +328,7 @@
                     });
 
                     $(document).on("click", "#registerbtn", function (e) {
-          
+
                         self.registerNote(self.getDataRegisterNote());
                         e.preventDefault();
                         e.stopPropagation();
@@ -349,7 +349,7 @@
                         }
                         $('#myModal').modal('hide');
                     });
-    
+
                     $(document).on("click", ".edit-btn", function () {
                         self.variables.addNoteFlag = false;
                         self.variables.id = Number(($(this).attr('data-index')));
@@ -357,7 +357,7 @@
                         self.getEditNote(row[self.variables.id]);
                         self.messageCount();
                     });
-    
+
                     $(document).on("click", ".del-btn", function () {
                         $('#confirm-delete').modal('show');
                         var id = $(this).attr('data-index');
@@ -371,9 +371,9 @@
                         let row = self.variables.result;
                         let dataIndex = Number(($(this).attr('data-index')));
                         self.getEditNote(row[dataIndex]);
-                  
+
                     });
-    
+
                     $(document).on('click', '#note-sendSMS', function () {
                         let ph1 = $('#notephoneField1').val();
                         let ph2 = $('#notephoneField2').val();
@@ -389,7 +389,7 @@
                         self.showAlertDanger('Note Deleted Successfully.');
                         $('#confirm-delete').modal('hide');
                     });
-    
+
                     $(document).on('input', '#noteMessageField', function () {
                         self.messageCount();
                     });
@@ -399,7 +399,7 @@
                         $( "#login-register" ).fadeOut( "fast" )
                     });
                 },
-    
+
                 messageCount: function () {
                     var textLength = $('#noteMessageField').val().length;
                     var maxLength = Number($('#text-count').attr("data-max-length"));
@@ -407,12 +407,11 @@
                 }
             }
         };
-    
+
         var stickyNotes = new stickyNotes();
         stickyNotes.clickOps();
         stickyNotes.getNote();
-        
-    
+
+
     }());
-    
-    
+
