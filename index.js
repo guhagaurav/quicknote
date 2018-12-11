@@ -4,6 +4,7 @@ const path = require("path");
 const port = process.env.PORT || 8081;
 const parseJson = require("parse-json");
 const bodyParser = require("body-parser");
+const assert =  require("assert");
 var MongoClient = require("mongodb").MongoClient;
 var mongoose = require("mongoose");
 var ObjectID = require("mongodb").ObjectID;
@@ -13,10 +14,10 @@ var session = require('express-session');
 var validator = require('express-validator');
 var MongoDBStore = require('connect-mongodb-session')(session);
 require("request");
-mongoose.connect("mongodb://admin:admin123@ds227664.mlab.com:27664/quicknote/login",{
+mongoose.connect("mongodb://admin:admin123@ds227664.mlab.com:27664/quicknote",{
 });
 var store = new MongoDBStore({
-  uri: 'mongodb://admin:admin123@ds227664.mlab.com:27664/quicknote/login',
+  uri: 'mongodb://admin:admin123@ds227664.mlab.com:27664/quicknote',
   collection: 'mySessions'
 });
 var db = mongoose.connection;
@@ -43,7 +44,6 @@ app.use(require('express-session')({
   saveUninitialized: true
 }));
 
-const targetBaseUrl = 'http://localhost:3000'
 var Nexmo = require("nexmo");
 const nexmo = new Nexmo({
   apiKey: "b7a1eeb7",
@@ -187,7 +187,7 @@ app.post("/api/sms", (req, res) => {
        );
 });
 
-MongoClient.connect("mongodb://admin:admin123@ds227664.mlab.com:27664/quicknote/notes", function(err, client) {
+MongoClient.connect("mongodb://admin:admin123@ds227664.mlab.com:27664/quicknote", function(err, client) {
     let db = client.db("notes");
     let notes = db.collection("notes");
     if (err) throw err;
