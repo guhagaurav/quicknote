@@ -6,7 +6,7 @@ block content
                 .col-md-3.register-left
                     img(src='https://image.ibb.co/n7oTvU/logo_white.png', alt='')
                     h3 QuickNote
-                    p You are 20 seconds away from having your own personilized notes!!!
+                    p You are 20 seconds away from having your own personilized notes!!
                 .col-md-9.register-right
                     ul#myTab.nav.nav-tabs.nav-justified(role='tablist')
                         li.nav-item
@@ -46,17 +46,18 @@ block content
                                             option(value='What is Your old Phone Number') What is Your old Phone Number
                                             option(value='What is your Pet Name?') What is your Pet Name?
                                     .form-group
-                                        input.form-control(name='secAnsClient', type='text', placeholder='Enter Your Answer *', value='', required='')           
+                                        input.form-control(name='secAnsClient', type='text', placeholder='Enter Your Answer *', value='', required='')
+                                        
                                 .col-md-12
-                                    input#btn-register-client.btn-register(type='submit', value='Register')
-                                    input#login-register-client(type='submit', value='Click to Login')
+                                    input#registerbtn.btnRegister(type='submit', value='Register')
+                                    input#login-register.btnRegister(type='submit', value='Click to Login')
                                     p#err-msg-register(style="color:red")
                                     p#success-msg-register(style="color:green")
                                     //marquee#err-msg-register(behavior='scroll', direction='left', style="color:red")
    
                         #profile.tab-pane.fade.show(role='tabpanel', aria-labelledby='profile-tab')
                             h3.register-heading Apply as a Employee
-                            form#register-form-emp.row.register-form
+                            .row.register-form
                                 .col-md-6
                                     .form-group
                                         input.form-control(name='fNameEmp', type='text', placeholder='First Name *', value='', required='')
@@ -87,11 +88,7 @@ block content
                                             option What is your Pet Name?
                                     .form-group
                                         input.form-control(name='secAnsEmp', type='text', placeholder='`Answer *', value='', required='')
-                                .col-md-12
-                                    input#btn-register-emp.btn-register(type='submit', value='Register')
-                                    input#login-register-emp(type='submit', value='Click to Login')
-                                    p#err-msg-register(style="color:red")
-                                    p#success-msg-register(style="color:green")
+                                        input.btnRegister(type='submit', value='Register')
         .alert.alert-success(role='alert')
         .alert.alert-info(role='alert')
         .alert.alert-danger(role='alert')

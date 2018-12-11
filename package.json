@@ -4,8 +4,7 @@
   "description": "books",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
-    "start": "node index.js"
+    "test": "mocha"
   },
   "keywords": [
     "books"

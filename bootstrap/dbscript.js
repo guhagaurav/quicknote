@@ -327,7 +327,7 @@
                         e.preventDefault();
                     });
 
-                    $(document).on("click", "#btnRegister", function (e) {
+                    $(document).on("click", "#registerbtn", function (e) {
           
                         self.registerNote(self.getDataRegisterNote());
                         e.preventDefault();
@@ -396,8 +396,7 @@
 
                     $(document).ready(function(){
                         $('#register-link').attr('disabled',true);
-                        $( "#login-register-client" ).fadeOut( "fast" )
-                        $( "#login-register-emp" ).fadeOut( "fast" )
+                        $( "#login-register" ).fadeOut( "fast" )
                     });
                 },
     
