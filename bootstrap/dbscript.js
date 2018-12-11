@@ -65,7 +65,7 @@
                             }
                             else if (status == true){
                                 $('#success-msg-register').append("Registration Success!! Click Login to Proceed >>");
-                                $( "#login-register-client" ).fadeIn( "slow" )
+                                $( "#login-register" ).fadeIn( "slow" )
                                 self.clearDataRegister();
                             }
                             else if (status.name == "MongoError"){
@@ -318,16 +318,16 @@
                         self.searchNote(searchText);
                     });
 
-                    $(document).on("click", "#btn-login", function () {
+                    $(document).on("click", "#loginbtn", function () {
                         self.loginNote(self.getDataLoginNote());
                     });
 
-                    $(document).on("click", "#login-register-client", function (e) {
+                    $(document).on("click", "#login-register", function (e) {
                         self.redirectLoginNote();
                         e.preventDefault();
                     });
 
-                    $(document).on("click", "#btn-register-client", function (e) {
+                    $(document).on("click", "#registerbtn", function (e) {
           
                         self.registerNote(self.getDataRegisterNote());
                         e.preventDefault();
@@ -396,8 +396,7 @@
 
                     $(document).ready(function(){
                         $('#register-link').attr('disabled',true);
-                        $( "#login-register-client" ).fadeOut( "fast" )
-                        $( "#login-register-emp" ).fadeOut( "fast" )
+                        $( "#login-register" ).fadeOut( "fast" )
                     });
                 },
     

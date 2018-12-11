@@ -4,7 +4,6 @@ const path = require("path");
 const port = process.env.PORT || 3000;
 const parseJson = require("parse-json");
 const bodyParser = require("body-parser");
-const assert =  require("assert");
 var MongoClient = require("mongodb").MongoClient;
 var mongoose = require("mongoose");
 var ObjectID = require("mongodb").ObjectID;
@@ -44,6 +43,7 @@ app.use(require('express-session')({
   saveUninitialized: true
 }));
 
+const targetBaseUrl = 'http://localhost:3000'
 var Nexmo = require("nexmo");
 const nexmo = new Nexmo({
   apiKey: "b7a1eeb7",
@@ -65,32 +65,27 @@ function authenticateLogin(authBody){
   })
 }
 
-
 db.on("error", console.error.bind(console, "connection error"));
 db.once("open", function(callback) {
   console.log("Connection succeeded to Mongodb using Mongoose");
 
   app.post('/api/login/', function(req, res) {
-	  console.log("######################################### ")
     req.check('loginEmail', 'Invalid Email! ').isEmail();
     req.check('loginPassword', 'Invalid Password!  ').isLength({min:4});
     let errors = req.validationErrors();
     let loginErrors = JSON.parse(JSON.stringify(errors));
     if(errors){
-  	  console.log("######################################### ")
       req.session.errors = loginErrors;
       req.session.success = false;
       res.send(req.session.errors)
   
     }
     else{
-    	console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" )
       let authBody = {};
       req.session.success = true;
       authBody.loginEmail = req.body.loginEmail;
       authBody.loginPassword = req.body.loginPassword;
       authenticateLogin(authBody).then((authBody)=>{
-    	  console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ",authBody.authStatus)
       if(authBody.authStatus){
         req.session.user = authBody;
         res.render("index", {
@@ -191,13 +186,12 @@ app.post("/api/sms", (req, res) => {
        );
 });
 
-MongoClient.connect("mongodb://localhost:27017/notes", function(err, client) {
-    let db = client.db("notes");
-    let notes = db.collection("notes");
+MongoClient.connect("mongodb://localhost:27017/login", function(err, client) {
+
+    var db = client.db("login");
     if (err) throw err;
 
     app.get("/notes/", (req, res) => {
-    	console.log("/notes")
       if (!req.session.user){
          res.redirect("/api/login")
       }
@@ -213,7 +207,7 @@ MongoClient.connect("mongodb://localhost:27017/notes", function(err, client) {
     app.get("/api/notes/", (req, res) => {
      if(req.session.user){
       //let userDetails = JSON.parse(JSON.stringify(req.session.user));
-       notes.find({"emailClient": req.session.user.loginEmail}).toArray((err, result) => {
+       db.collection("notes").find({"emailClient": req.session.user.loginEmail}).toArray((err, result) => {
          if (err) throw err;
          else {
            result === null
@@ -228,7 +222,7 @@ MongoClient.connect("mongodb://localhost:27017/notes", function(err, client) {
     app.post("/api/notes/search", (req, res) => {
       let body = req.body;
       if(req.session.user){
-      notes.find({$and: [{"emailClient": req.session.user.loginEmail},{ message: { $regex: body.searchText }}]}).toArray((err, data) => {
+    	  db.collection("notes").find({$and: [{"emailClient": req.session.user.loginEmail},{ message: { $regex: body.searchText }}]}).toArray((err, data) => {
           if (err) {
             console.log(err);
             res.status(500).send("Some internal error");
@@ -241,7 +235,7 @@ MongoClient.connect("mongodb://localhost:27017/notes", function(err, client) {
 
     app.get("/api/notes/:id", (req, res) => {
       let id = ObjectID.createFromHexString(req.params.id);
-      notes.findOne({ _id: id }, (err, note) => {
+      db.collection("notes").findOne({ _id: id }, (err, note) => {
         if (err) {
           console.log(err);
           res.status(500).send("internal Server Error");
@@ -258,11 +252,12 @@ MongoClient.connect("mongodb://localhost:27017/notes", function(err, client) {
       if(req.session.user){
         let userDetails = JSON.parse(JSON.stringify(req.session.user));
         body.emailClient = userDetails.loginEmail;
-        notes.insert(body, (err, result) => {
+        db.collection("notes").insert(body, (err, result) => {
           if (err) { 
           console.log(err);
           res.status(500).send("Some internal error");
           } else {
+        	  console.log("result", result)
           res.status(200).send(result);
         }
       });
@@ -285,7 +280,7 @@ MongoClient.connect("mongodb://localhost:27017/notes", function(err, client) {
           noteTime: `${noteTime}`
         }
       };
-      notes.updateOne({ _id: id }, newvalues, (err, note) => {
+      db.collection("notes").updateOne({ _id: id }, newvalues, (err, note) => {
         if (err) {
           console.log(err);
           res.status(500).send("internal Server Error");
@@ -299,7 +294,7 @@ MongoClient.connect("mongodb://localhost:27017/notes", function(err, client) {
 
     app.delete("/api/notes/:id", (req, res) => {
       let id = ObjectID.createFromHexString(req.params.id);
-      notes.removeOne({ _id: id }, (err, note) => {
+      db.collection("notes").removeOne({ _id: id }, (err, note) => {
         if (err) {
           console.log(err);
           res.status(500).send("internal Server Error");
@@ -313,8 +308,4 @@ MongoClient.connect("mongodb://localhost:27017/notes", function(err, client) {
   }
 );
 
-
-
-var server = app.listen(port, () =>
-  console.log(`Example app listening on port ${port}!`)
-);
+var server = app.listen(port, () =>  console.log(`Example app listening on port ${port}!`))

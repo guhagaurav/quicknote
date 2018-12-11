@@ -47,11 +47,11 @@ body#RegisterUser{ background-image:url("/plain-light-blue.jpg"); background-rep
     padding: 12%;
     margin-top: -9%;
 }
-.register-form{
+.register .register-form{
     padding: 10%;
     margin-top: 10%;
 }
-.btn-register{
+.btnRegister{
     float: right;
     margin-top: 2%;
     margin-bottom: -3%;
@@ -64,7 +64,6 @@ body#RegisterUser{ background-image:url("/plain-light-blue.jpg"); background-rep
     width: 20%;
     cursor: pointer;
 }
-
 .register .nav-tabs{
     margin-top: 3%;
     border: none;
@@ -98,7 +97,7 @@ body#RegisterUser{ background-image:url("/plain-light-blue.jpg"); background-rep
     color: #495057;
 }
 
-.btn-register{
+.btnRegister{
     margin-left: 10px;
     margin-top: 1%;
 }
