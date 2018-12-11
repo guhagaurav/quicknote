@@ -12,11 +12,11 @@
                     addNoteFlag: true
                 },
 
-                redirectLoginNote(){
+                redirectLoginNote: function (){
                     $.ajax({
                         type: 'GET',
                         contentType: 'application/json',
-                        url: 'http://localhost:3000/api/login',
+                        url: 'https://quick--note.herokuapp.com/api/login',
                         success: function(data) {
                             if(data){
                                 window.location='https://quick--note.herokuapp.com/api/login'
@@ -31,7 +31,7 @@
                         type: 'POST',
                         data: loginDetails,
                         contentType: 'application/json',
-                        url: 'http://localhost:3000/api/login',
+                        url: 'https://quick--note.herokuapp.com/api/login',
                         success: function(status) {
                         if (status == 404){
                             $("#err-msg-login").empty();
