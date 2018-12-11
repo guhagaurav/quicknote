@@ -1,10 +1,10 @@
 extends layout
- 
+
 block content
   body
     strong
-      .logout 
-        a(href='/api/logout') Logout
+      .logout
+        a(href='https://quick--note.herokuapp.com/') Logout
     .container
       h4(align='center', style='color: crimson; font-style: oblique; font-weight: 600;') QuickNote
       br
@@ -17,14 +17,14 @@ block content
           button#add-note.btn.btn-primary.btn-sm(type='button', data-toggle='modal', data-placement='top', data-target='#myModal', title='Add a New Note')
             | Add Note
           strong.total-notes
-            | Total Notes:  
+            | Total Notes:
             span#tot-count
       .panel.panel-info
         .panel-heading
           strong List of Notes
         .panel-body
           table.table.table-striped
-            thead 
+            thead
               tr
                 th(scope='col') Index
                 th(scope='col') Note
@@ -71,7 +71,7 @@ block content
                 h6.modal-title Enter the Phone number to send notes message
               .modal-body
                 div.phone-number
-                  label(for='noteNameField') Ph Number#   
+                  label(for='noteNameField') Ph Number#
                   .col-sm-2
                     input#notephoneField1.form-control(type='text', size='1', maxlength='1', placeholder='cc', required='required')
                   .col-sm-4
@@ -79,7 +79,7 @@ block content
               .modal-footer
                 .form-group
                   button.btn.btn-outline-secondary.btn-sm(type='button' data-dismiss='modal') Cancel
-                  button#note-sendSMS.btn.btn-info.btn-ok.btn-sm(type='button') Send SMS  
+                  button#note-sendSMS.btn.btn-info.btn-ok.btn-sm(type='button') Send SMS
         .alert.alert-success(role='alert')
         .alert.alert-info(role='alert')
         .alert.alert-danger(role='alert')
