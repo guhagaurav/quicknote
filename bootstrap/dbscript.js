@@ -16,7 +16,7 @@
                     $.ajax({
                         type: 'GET',
                         contentType: 'application/json',
-                        url: 'https://quick--note.herokuapp.com/api/login',
+                        url: '/api/login',
                         success: function(data) {
                             if(data){
                                 window.location='https://quick--note.herokuapp.com/api/login'
@@ -31,8 +31,9 @@
                         type: 'POST',
                         data: loginDetails,
                         contentType: 'application/json',
-                        url: 'https://quick--note.herokuapp.com/api/login',
+                        url: '/api/login',
                         success: function(status) {
+                            console.log(status)
                         if (status == 404){
                             $("#err-msg-login").empty();
                             $("#err-msg-login").append(" Check the password or Please Register ");
@@ -43,7 +44,7 @@
                             $("#err-msg-login").append(result);
                         }
                         else {
-                            window.location='https://quick--note.herokuapp.com//notes'
+                            window.location='https://quick--note.herokuapp.com/notes'
                         }
                         }
                     });
@@ -56,7 +57,7 @@
                         type: 'POST',
                         data: registerData,
                         contentType: 'application/json',
-                        url: 'https://quick--note.herokuapp.com/api/registerUser',
+                        url: '/api/registerUser',
                         success: function(status) {
                             console.log("REGISTR SAVE ",status);
                             $('#err-msg-register').empty();
@@ -87,7 +88,7 @@
                         type: 'POST',
                         data: newData,
                         contentType: 'application/json',
-                        url: 'https://quick--note.herokuapp.com/api/notes/search',
+                        url: '/api/notes/search',
                         success: function(data) {
                             for (let index in data) {
                                 self.variables.result.push(data[index])
@@ -121,7 +122,7 @@
                         type: 'POST',
                         data: msg,
                         contentType: 'application/json',
-                            url: 'https://quick--note.herokuapp.com/api/sms',
+                            url: '/api/sms',
                             success: function(data) {
                             if (data.messages[0].status == 0){
                                 self.showAlertInfo("Message sent Successfully")
@@ -141,7 +142,7 @@
                         type: 'POST',
                         data: obj,
                         contentType: 'application/json',
-                        url: 'https://quick--note.herokuapp.com/api/notes',
+                        url: '/api/notes',
                         success: function(data) {
                             setTimeout(function () {
                                 self.getNote();
@@ -158,7 +159,7 @@
                     $.ajax({
                         type: 'GET',
                         contentType: 'application/json',
-                        url: 'https://quick--note.herokuapp.com/api/notes',
+                        url: '/api/notes',
                         success: function(data) {
                         for (let index in data) {
                             self.variables.result.push(data[index])
@@ -189,7 +190,7 @@
                         type: 'PUT',
                         data: data,
                         contentType: 'application/json',
-                        url: 'https://quick--note.herokuapp.com/api/notes/'+id,
+                        url: '/api/notes/'+id,
                         success: function(data) {
                             setTimeout(function () {
                                 self.getNote();
@@ -205,7 +206,7 @@
                     $.ajax({
                         type: 'DELETE',
                         contentType: 'application/json',
-                        url: 'https://quick--note.herokuapp.com/api/notes/'+id,
+                        url: '/api/notes/'+id,
                         success: function(data) {
                             setTimeout(function () {
                                 self.getNote();
