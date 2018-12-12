@@ -65,13 +65,16 @@
                                 $('#err-msg-register').append("Field Validation Error!!");
                             }
                             else if (status == true){
+                                $('#success-msg-register').empty();
                                 $('#success-msg-register').append("Registration Success!! Click Login to Proceed >>");
                                 $( "#login-register" ).fadeIn( "slow" )
                                 self.clearDataRegister();
                             }
                             else if (status.name == "MongoError"){
                                 $('#success-msg-register').empty();
-                                $('#success-msg-register').append("Registration Success!! Click Login to Proceed >>");
+                                $('#success-msg-register').append("Already Registered!! Click Login to Proceed >>");
+                                $( "#login-register" ).fadeIn( "slow" );
+                                self.clearDataRegister();
                             }
                         }
 
