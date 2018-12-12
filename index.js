@@ -171,7 +171,7 @@ app.get("/", (req, res) => {
 
 app.get("/api/logout", (req, res)=>{
   req.session.destroy();
-  res.redirect(baseURL + "/api/login")
+  res.redirect("/")
   return res.status(200).send();
 })
 
@@ -196,7 +196,7 @@ MongoClient.connect("mongodb://admin:admin123@ds227664.mlab.com:27664/quicknote"
     app.get("/notes/", (req, res) => {
     	console.log("/notes")
       if (!req.session.user){
-         res.redirect("/api/login")
+         res.redirect("/")
       }
       else{
         res.render("index", {

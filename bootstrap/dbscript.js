@@ -16,7 +16,7 @@
                     $.ajax({
                         type: 'GET',
                         contentType: 'application/json',
-                        url: '/api/login',
+                        url: '/',
                         success: function(data) {
                             if(data){
                                 window.location='https://quick--note.herokuapp.com'
