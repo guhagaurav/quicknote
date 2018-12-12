@@ -70,6 +70,7 @@
                                 self.clearDataRegister();
                             }
                             else if (status.name == "MongoError"){
+                                $('#success-msg-register').empty();
                                 $('#success-msg-register').append("Registration Success!! Click Login to Proceed >>");
                             }
                         }
