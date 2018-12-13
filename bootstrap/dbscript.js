@@ -2,9 +2,10 @@
 
     //Defining namespace
         var stickyNotes = function () {
+            var rowMap = new Map();
 
             return {
-                var rowMap = new Map();
+
                 variables: {
                     "id": '',
                     "mongoId":[],
