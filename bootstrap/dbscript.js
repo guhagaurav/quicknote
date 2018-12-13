@@ -363,7 +363,8 @@
                         self.variables.id = Number(($(this).attr('data-index')));
                         let mongoId = self.variables.mongoId[self.variables.id]
                         let row = self.variables.result;
-                        let rowIndexToEdit = row.findIndex(obj => row._id == mongoId);
+                        let values = row.map(function(o) { return o._id; });
+                        let rowIndexToEdit = values.indexOf(mongoId);
                         self.getEditNote(row[rowIndexToEdit]);
                         self.messageCount();
                     });
