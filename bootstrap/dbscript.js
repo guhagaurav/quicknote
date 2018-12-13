@@ -89,7 +89,8 @@
                     let data = {};
                     data.searchText = searchText;
                     var newData = JSON.stringify(data);
-                    self.variables.result = undefined;
+                    self.variables.mongoId = [];
+                    self.variables.result = [];
                     $("#tbl").empty();
 
                     $.ajax({
@@ -99,7 +100,7 @@
                         url: '/api/notes/search',
                         success: function(data) {
                             for (let index in data) {
-
+                                self.variables.mongoId.push(data[index]._id);
                                 self.variables.result.push(data[index])
                                 rowMap.set(data[index]._id,index);
                                 $("#tbl").append("<tr><td>" + index + "</td> <td><div class='note'>" +
@@ -163,17 +164,17 @@
 
     //getNote function will get the notes from mongoDB and display in UI
                 getNote: function () {
-                    this.variables.result = [];
                     $("#tbl").empty();
                     var self = this;
-                    self.variables.result = undefined;
+                    self.variables.mongoId = [];
+                    self.variables.result = [];
                     $.ajax({
                         type: 'GET',
                         contentType: 'application/json',
                         url: '/api/notes',
                         success: function(data) {
                         for (let index in data) {
-
+                            self.variables.mongoId.push(data[index]._id);
                             self.variables.result.push(data[index]);
                             $("#tbl").append("<tr><td>" + index + "</td><td><div class='note'>" +
                             "<p>Subject: " + data[index].subject + "</p>" +
