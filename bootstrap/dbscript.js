@@ -3,7 +3,7 @@
     //Defining namespace
         var stickyNotes = function () {
             var rowMap = new Map();
-            var baseUrl = 'https://quick--note.herokuapp.com'
+
             return {
 
                 variables: {
@@ -22,7 +22,7 @@
                         url: '/',
                         success: function(data) {
                             if(data){
-                                window.location = baseUrl
+                                window.location='https://quick--note.herokuapp.com'
                             }
                         }
                     })
@@ -47,7 +47,7 @@
                             $("#err-msg-login").append(result);
                         }
                         else {
-                            window.location = baseUrl
+                            window.location='https://quick--note.herokuapp.com/notes'
                         }
                         }
                     });
@@ -164,6 +164,7 @@
 
     //getNote function will get the notes from mongoDB and display in UI
                 getNote: function () {
+
                     $("#tbl").empty();
                     var self = this;
                     self.variables.mongoId = [];
