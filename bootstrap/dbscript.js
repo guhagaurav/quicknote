@@ -3,7 +3,7 @@
     //Defining namespace
         var stickyNotes = function () {
             var rowMap = new Map();
-
+            var baseUrl = 'https://quick--note.herokuapp.com'
             return {
 
                 variables: {
@@ -22,7 +22,7 @@
                         url: '/',
                         success: function(data) {
                             if(data){
-                                window.location='https://quick--note.herokuapp.com'
+                                window.location = baseUrl
                             }
                         }
                     })
@@ -47,7 +47,7 @@
                             $("#err-msg-login").append(result);
                         }
                         else {
-                            window.location='https://quick--note.herokuapp.com/notes'
+                            window.location = baseUrl
                         }
                         }
                     });
