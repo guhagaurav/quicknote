@@ -4,6 +4,7 @@
         var stickyNotes = function () {
 
             return {
+                var rowMap = new Map();
                 variables: {
                     "id": '',
                     "mongoId":[],
@@ -96,8 +97,11 @@
                         url: '/api/notes/search',
                         success: function(data) {
                             for (let index in data) {
+                                self.variables.mongoId = undefined;
+                                self.variables.result = undefined;
                                 self.variables.mongoId.push(data[index]._id);
                                 self.variables.result.push(data[index])
+                                rowMap.set(data[index]._id,index);
                                 $("#tbl").append("<tr><td>" + index + "</td> <td><div class='note'>" +
                                 "<p>Subject: " + data[index].subject + "</p>" +
                                 "<p>Message: " + data[index].message + "</p>" +
@@ -168,8 +172,10 @@
                         url: '/api/notes',
                         success: function(data) {
                         for (let index in data) {
+                            self.variables.mongoId = undefined;
+                            self.variables.result = undefined;
                             self.variables.mongoId.push(data[index]._id);
-                            self.variables.result.push(data[index])
+                            self.variables.result.push(data[index]);
                             $("#tbl").append("<tr><td>" + index + "</td><td><div class='note'>" +
                             "<p>Subject: " + data[index].subject + "</p>" +
                             "<p>Message: " + data[index].message + "</p>" + " <p> Message Length: " + data[index].noteLength+ "</p>" +
@@ -363,8 +369,8 @@
                         self.variables.id = Number(($(this).attr('data-index')));
                         let mongoId = self.variables.mongoId[self.variables.id]
                         let row = self.variables.result;
-                        let values = row.map(function(o) { return o._id; });
-                        let rowIndexToEdit = values.indexOf(mongoId);
+                       // let values = row.map(function(o) { return o._id; });
+                        let rowIndexToEdit = rowMap.get(mongoId)
                         self.getEditNote(row[rowIndexToEdit]);
                         self.messageCount();
                     });
