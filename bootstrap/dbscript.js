@@ -6,6 +6,7 @@
             return {
                 variables: {
                     "id": '',
+                    "mongoId":[],
                     "length": '',
                     "text_remaining": '',
                     result: [],
@@ -95,6 +96,7 @@
                         url: '/api/notes/search',
                         success: function(data) {
                             for (let index in data) {
+                                self.variables.mongoId.push(data[index]._id);
                                 self.variables.result.push(data[index])
                                 $("#tbl").append("<tr><td>" + index + "</td> <td><div class='note'>" +
                                 "<p>Subject: " + data[index].subject + "</p>" +
@@ -166,6 +168,7 @@
                         url: '/api/notes',
                         success: function(data) {
                         for (let index in data) {
+                            self.variables.mongoId.push(data[index]._id);
                             self.variables.result.push(data[index])
                             $("#tbl").append("<tr><td>" + index + "</td><td><div class='note'>" +
                             "<p>Subject: " + data[index].subject + "</p>" +
@@ -358,8 +361,10 @@
                     $(document).on("click", ".edit-btn", function () {
                         self.variables.addNoteFlag = false;
                         self.variables.id = Number(($(this).attr('data-index')));
+                        let mongoId = self.variables.mongoId[self.variables.id]
                         let row = self.variables.result;
-                        self.getEditNote(row[self.variables.id]);
+                        let rowIndexToEdit = row.findIndex(obj => row._id == mongoId);
+                        self.getEditNote(row[rowIndexToEdit]);
                         self.messageCount();
                     });
 
