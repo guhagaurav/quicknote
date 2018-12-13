@@ -91,6 +91,7 @@
                     var newData = JSON.stringify(data);
                     self.variables.mongoId = [];
                     self.variables.result = [];
+                    rowMap.clear();
                     $("#tbl").empty();
 
                     $.ajax({
@@ -164,10 +165,12 @@
 
     //getNote function will get the notes from mongoDB and display in UI
                 getNote: function () {
+
                     $("#tbl").empty();
                     var self = this;
                     self.variables.mongoId = [];
                     self.variables.result = [];
+                    rowMap.clear();
                     $.ajax({
                         type: 'GET',
                         contentType: 'application/json',
@@ -176,12 +179,13 @@
                         for (let index in data) {
                             self.variables.mongoId.push(data[index]._id);
                             self.variables.result.push(data[index]);
+                            rowMap.set(data[index]._id,index);
                             $("#tbl").append("<tr><td>" + index + "</td><td><div class='note'>" +
                             "<p>Subject: " + data[index].subject + "</p>" +
                             "<p>Message: " + data[index].message + "</p>" + " <p> Message Length: " + data[index].noteLength+ "</p>" +
                             "<strong>Author: " + data[index].author + "</strong>" + " <span>, " + data[index].noteTime + "</span>" +
-                            "</div></td><td><button type='button' data-toggle='modal' data-target='#myModal' class='btn-sm edit-btn btn btn-primary' data-index='" + index + "'" + "id='edit-btn" + index + "'" + ">Edit</button> " +
-                            "<button type='button' class='btn-sm del-btn btn btn-danger' data-index='" + data[index]._id + "'" + "id='del-btn'>Delete</button>" +
+                            "</div></td><td><button type='button' data-toggle='modal' data-target='#myModal' class='btn-sm edit-btn btn btn-primary' data-index='" + index + "'" + "id='edit-btn" + index + "'" + ">Edit</button> <br/> " +
+                            "<button type='button' class='btn-sm del-btn btn btn-danger' data-index='" + data[index]._id + "'" + "id='del-btn'>Delete</button> <br/>" +
                             "<button type='button' class='btn-sm sms-btn btn btn-info' data-index='" + index + "'" + "id='sms-btn'>Send SMS</button></td></td></tr>");
 
                         index++;

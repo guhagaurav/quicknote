@@ -1,7 +1,7 @@
 body#RegisterUser{ background-image:url("/plain-light-blue.jpg"); background-repeat:no-repeat; background-position:center; background-size:cover; padding:10px;}
 
 .register{
-   
+
     margin-top: 3%;
     padding: 3%;
 }
@@ -100,4 +100,8 @@ body#RegisterUser{ background-image:url("/plain-light-blue.jpg"); background-rep
 .btnRegister{
     margin-left: 10px;
     margin-top: 1%;
+}
+
+.radio {
+    margin: 3px;
 }
