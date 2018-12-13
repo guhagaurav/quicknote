@@ -91,6 +91,7 @@
                     var newData = JSON.stringify(data);
                     self.variables.mongoId = [];
                     self.variables.result = [];
+                    rowMap.clear();
                     $("#tbl").empty();
 
                     $.ajax({
@@ -169,6 +170,7 @@
                     var self = this;
                     self.variables.mongoId = [];
                     self.variables.result = [];
+                    rowMap.clear();
                     $.ajax({
                         type: 'GET',
                         contentType: 'application/json',
@@ -177,6 +179,7 @@
                         for (let index in data) {
                             self.variables.mongoId.push(data[index]._id);
                             self.variables.result.push(data[index]);
+                            rowMap.set(data[index]._id,index);
                             $("#tbl").append("<tr><td>" + index + "</td><td><div class='note'>" +
                             "<p>Subject: " + data[index].subject + "</p>" +
                             "<p>Message: " + data[index].message + "</p>" + " <p> Message Length: " + data[index].noteLength+ "</p>" +
